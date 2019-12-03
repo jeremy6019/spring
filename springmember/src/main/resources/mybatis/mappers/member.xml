@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+		<insert id="insert" parameterType="Member">
+			insert into member(email, password, name, nickname, image, birthday, phone)
+			values(#{email},#{password},#{name}, #{nickname}, #{image}, #{birthday}, #{phone})
+		</insert>
+		
+		<update id="update" parameterType="Member">
+			update member 
+			set password=#{password}, name=#{name}, nickname=#{nickname},
+				  image=#{image}, birthday=#{birthday}, phone=#{phone}
+			where email = #{email}
+		</update>
+		<delete id="delete" parameterType="java.lang.String">
+			delete from member 
+			where email = #{email}
+		</delete>
+		
+		<!--  member테이블의 전체 데이터를 가져오는 SQL -->
+		<select id="allmember" resultType="Member">
+			select * 
+			from member
+		</select>
+		
+		<!-- 	기본키를 가지고  한 개의   데이터를 조회하는  SQL -->
+		<select id="getmember" resultType="java.util.Map"
+		parameterType="java.lang.String">
+			select  *
+			from member
+			where email = #{email}
+		</select>
+</mapper>
